@@ -11,7 +11,7 @@ class Main extends Component {
           const destName = this.destName.value
           const srcName = this.srcName.value
           const price = window.web3.utils.toWei(this.productPrice.value.toString(), 'Ether')
-          this.props.createProduct(srcName, destName, price)
+          this.props.createProduct(destName, srcName, price)
         }}>
           <div className="form-group mr-sm-2">
             <input
@@ -37,7 +37,7 @@ class Main extends Component {
               type="text"
               ref={(input) => { this.productPrice = input }}
               className="form-control"
-              placeholder="Enter No. of People"
+              placeholder="Enter price in ETH"
               required />
           </div>
           <button type="submit" className="btn btn-primary">Ride the donkey!</button>
@@ -50,7 +50,7 @@ class Main extends Component {
               <th scope="col">#</th>
               <th scope="col">Source Location</th>
               <th scope="col">Destination Location</th>
-              <th scope="col">No. of members</th>
+              <th scope="col">Price</th>
               <th scope="col">User ID</th>
               {/* <th scope="col"></th> */}
             </tr>
@@ -60,9 +60,9 @@ class Main extends Component {
               return(
                 <tr key={key}>
                   <th scope="row">{product.id.toString()}</th>
-                  <td>{product.name2}</td>
-                  <td>{product.name}</td>
-                  <td>{window.web3.utils.fromWei(product.price.toString(), 'Ether')}</td>
+                  <td>{product.destName}</td>
+                  <td>{product.srcName}</td>
+                  <td>{window.web3.utils.fromWei(product.price.toString(), 'Ether') + 'ETH'}</td>
                   <td>{product.owner}</td>
                   <td>
                     { !product.purchased
@@ -70,7 +70,7 @@ class Main extends Component {
                           name={product.id}
                           value={product.price}
                           onClick={(event) => {
-                            this.props.purchaseProduct(parseInt(event.target.name), event.target.value)
+                            this.props.purchaseProduct(event.target.name, event.target.value)
                           }}
                         >
                           Buy

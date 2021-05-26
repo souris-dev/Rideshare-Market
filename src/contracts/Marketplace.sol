@@ -7,8 +7,8 @@ contract Marketplace {
 
     struct Product {
         uint id;
-        string name;
-        string name2;
+        string srcName;
+        string destName;
         uint price;
         address payable owner;
         bool purchased;
@@ -16,8 +16,8 @@ contract Marketplace {
 
     event ProductCreated(
         uint id,
-        string name,
-        string name2,
+        string srcName,
+        string destName,
         uint price,
         address payable owner,
         bool purchased
@@ -25,21 +25,21 @@ contract Marketplace {
 
     event ProductPurchased(
         uint id,
-        string name,
-        string name2,
+        string srcName,
+        string destName,
         uint price,
         address payable owner,
         bool purchased
     );
 
     constructor() public {
-        name = "Dapp University Marketplace";
+        name = "Rideshare-Market";
     }
 
     function createProduct(string memory _name, string memory _name2, uint _price) public {
-        // Require a valid name
+        // Require a valid srcName
         require(bytes(_name).length > 0);
-        // Require a valid name
+        // Require a valid srcName
         require(bytes(_name2).length > 0);
         // Require a valid price
         require(_price > 0);
@@ -73,6 +73,6 @@ contract Marketplace {
         // Pay the seller by sending them Ether
         address(_seller).transfer(msg.value);
         // Trigger an event
-        emit ProductPurchased(productCount, _product.name, _product.name2, _product.price, msg.sender, true);
+        emit ProductPurchased(productCount, _product.srcName, _product.destName, _product.price, msg.sender, true);
     }
 }
